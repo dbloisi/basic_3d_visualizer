@@ -1,8 +1,10 @@
 # basic_3d_visualizer
 A simple RGBD data visualizer that uses ROS, OpenCV, and PCL
 
-This file is part of basic_3d_visualizer and it is distributed under the terms of the
-GNU Lesser General Public License (Lesser GPL)
+![example](images/example.jpg)
+
+Try it by downloading [this ROS bag](http://www.dis.uniroma1.it/~bloisi/didattica/RobotProgramming/face.bag)
+
 
 basic_3d_visualizer is included in the material of the course (in italian)<br>
 Laboratorio Ciberfisico<br>
@@ -12,7 +14,8 @@ University of Verona (Italy)
 
 ![laboratorio ciberfisico](images/cyberphysical-lab.jpg)
 
-basic_3d_visualizer distributed in the hope that it will be useful,
+basic_3d_visualizer is distributed under the terms of the
+GNU Lesser General Public License (Lesser GPL) in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
