@@ -1,13 +1,10 @@
-/* University of Verona
+/* University of Basilicata
  * 
- * Laboratorio Ciberfisico
- * Robot Programming with ROS
- *
- * A.A. 2017/2018 
+ * Corso di Visione e Percezione
  *
  * Domenico D. Bloisi 
  *
- * domenico.bloisi@univr.it
+ * domenico.bloisi@unibas.it
  *
  *
  * basic_3d_visualizer
@@ -48,20 +45,21 @@ void compute3D(pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud,
 pcl::visualization::PCLVisualizer* viewer;
 
 void cloud_callback(const ImageConstPtr& depthImage_, const ImageConstPtr& rgbImage_) {
-  cv_bridge::CvImagePtr rgbImage = cv_bridge::toCvCopy(rgbImage_, sensor_msgs::image_encodings::BGR8);
-  cv_bridge::CvImageConstPtr depthImage = cv_bridge::toCvShare(depthImage_, sensor_msgs::image_encodings::TYPE_32FC1);
-  //cv_bridge::CvImageConstPtr rawDepthImage = cv_bridge::toCvShare(depthImage_, sensor_msgs::image_encodings::TYPE_16UC1);
+  cv_bridge::CvImagePtr rgbImage =
+             cv_bridge::toCvCopy(rgbImage_, sensor_msgs::image_encodings::BGR8);
+  cv_bridge::CvImageConstPtr depthImage =
+             cv_bridge::toCvShare(depthImage_, sensor_msgs::image_encodings::TYPE_32FC1);
 
   // Convert from ROS to PCL
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
   compute3D(cloud, rgbImage->image, depthImage->image);
+
   pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgbHandler(cloud);
   viewer->removePointCloud("cloud");
   viewer->addPointCloud<pcl::PointXYZRGB>(cloud, rgbHandler, "cloud");
   viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "cloud");
 
   cv::imshow("rgb", rgbImage->image);
-  cv::imshow("depth", depthImage->image);
   cv::waitKey(30);
 }
 
@@ -84,7 +82,6 @@ int main(int argc, char** argv) {
   message_filters::Subscriber<Image> rgb_sub(nh, "/camera/rgb/image_rect_color", 1);
 
   cv::namedWindow("rgb");
-  cv::namedWindow("depth");
 
   typedef sync_policies::ApproximateTime<Image, Image> syncPolicy;
   Synchronizer<syncPolicy> sync(syncPolicy(10), depth_sub, rgb_sub);

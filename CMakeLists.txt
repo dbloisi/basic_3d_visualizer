@@ -16,12 +16,21 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
 )
 
-find_package(OpenCV REQUIRED
+find_package(OpenCV 4.2 REQUIRED
   COMPONENTS
   opencv_highgui
   opencv_objdetect
   CONFIG
 )
+
+# Find Packages
+find_package(PCL 1.8 REQUIRED)
+
+if(PCL_FOUND)
+  include_directories( ${PCL_INCLUDE_DIRS} )
+  add_definitions( ${PCL_DEFINITIONS} )
+  link_directories( ${PCL_LIBRARY_DIRS} )
+endif()
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -164,6 +173,7 @@ add_executable(basic_3d_visualizer src/basic_3d_visualizer.cpp)
 target_link_libraries(basic_3d_visualizer
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
+  ${PCL_LIBRARIES}
 )
 
 #############
